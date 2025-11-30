@@ -56,6 +56,7 @@ The command-line interface for interacting with the Corebrum platform:
 - **Storage Operations**: Store and retrieve data from persistent storage
 - **Memory Operations**: Access distributed in-memory cache
 - **Network Discovery**: Explore mesh topology and topics
+- **Web Server**: Launch REST API and Web UI with `corebrum web`
 
 **Quick Start:**
 ```bash
@@ -88,6 +89,46 @@ corebrum cmos
 CMOS[user@local] > ls /jobs
 CMOS[user@local] > netstat
 CMOS[user@local] > submit task.yaml
+```
+
+### REST API
+
+Complete HTTP API for all Corebrum functions, making the platform accessible from any application:
+
+- **Full API Coverage**: All CLI and CMOS functions available via REST endpoints
+- **Interactive Documentation**: Swagger UI for testing and exploring the API
+- **Real-Time Streaming**: Server-Sent Events (SSE) and WebSocket support
+- **OpenAPI Specification**: Standard OpenAPI 3.0 specification for integration
+
+**Quick Start:**
+```bash
+# Start web server
+corebrum web
+
+# Access API documentation
+# http://localhost:6502/api/docs
+
+# Example API calls
+curl http://localhost:6502/api/jobs
+curl http://localhost:6502/api/netstat
+```
+
+### Web UI
+
+Modern browser-based interface for monitoring and managing the Corebrum mesh:
+
+- **Cores Tab**: Real-time worker monitoring with capabilities and load information
+- **Tasks Tab**: Monitor all jobs and streams, view results, cancel tasks
+- **Messages Tab**: Browse Zenoh topics, filter by type, stream messages in real-time
+- **API Tab**: Interactive Swagger UI for testing all endpoints
+- **WebSocket Support**: Real-time topic streaming with special handling for ROS2 image topics
+
+**Quick Start:**
+```bash
+# Start web server (automatically opens browser)
+corebrum web
+
+# Access Web UI at http://localhost:6502
 ```
 
 ## 🎯 Use Cases
@@ -153,7 +194,13 @@ cargo build --release
    corebrum submit --file task.yaml --input '{"number": 8}'
    ```
 
-3. **Launch CMOS shell:**
+3. **Launch Web UI and REST API:**
+   ```bash
+   corebrum web
+   # Opens browser to http://localhost:6502
+   ```
+
+4. **Launch CMOS shell:**
    ```bash
    corebrum cmos
    ```
@@ -173,6 +220,8 @@ cargo build --release
 - ✅ **In-Memory Caching**: High-speed distributed memory operations
 - ✅ **Zenoh Mesh Networking**: Automatic discovery and topology formation
 - ✅ **Interactive Shell**: CMOS provides familiar Unix-like interface
+- ✅ **REST API**: Complete HTTP API for all platform functions
+- ✅ **Web UI**: Modern browser-based interface for monitoring and management
 - ✅ **Stream-Reactive Tasks**: Real-time processing of continuous data streams
 - ✅ **Multi-Machine Support**: Scale from single machines to distributed clusters
 
