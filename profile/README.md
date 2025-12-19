@@ -75,7 +75,7 @@ corebrum status <task-id> --watch
 corebrum results <task-id>
 ```
 
-### CMOS (Corebrum Mesh Operating System)
+### CMOS (Cognitive Mesh Operating System)
 
 A Linux-like terminal shell for the decentralized mesh supercomputing platform:
 
