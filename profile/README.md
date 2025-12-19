@@ -43,6 +43,9 @@ Corebrum's architecture is built on four fundamental pillars:
 - **In-Memory Caching**: Ephemeral high-speed data access via Zenoh backends
 - **Distributed Cache**: Shared memory across the mesh network
 - **Real-Time Access**: Low-latency memory operations for hot data
+- **Identity-Scoped Memory**: Each robot maintains isolated, persistent memory
+- **Ancestor Memory Access**: Robots inherit memories from parent robots in identity lineage
+- **Hive Memory Sharing**: Collaborative memory groups for multi-robot learning
 
 ## 🛠️ Components
 
@@ -55,6 +58,8 @@ The command-line interface for interacting with the Corebrum platform:
 - **Worker Management**: Discover and monitor workers across the mesh
 - **Storage Operations**: Store and retrieve data from persistent storage
 - **Memory Operations**: Access distributed in-memory cache
+- **Identity Management**: Create and manage robot identities
+- **Hive Operations**: Create memory sharing groups and manage memberships
 - **Network Discovery**: Explore mesh topology and topics
 - **Web Server**: Launch REST API and Web UI with `corebrum web`
 
@@ -120,6 +125,9 @@ Modern browser-based interface for monitoring and managing the Corebrum mesh:
 - **Cores Tab**: Real-time worker monitoring with capabilities and load information
 - **Tasks Tab**: Monitor all jobs and streams, view results, cancel tasks
 - **Messages Tab**: Browse Zenoh topics, filter by type, stream messages in real-time
+- **Identity Tab**: Create and manage robot identities with lineage tracking
+- **Memory Tab**: View and manage memories for identities (own + ancestor + hive memories)
+- **Hives Tab**: Create memory sharing groups, manage memberships, and view shared knowledge
 - **API Tab**: Interactive Swagger UI for testing all endpoints
 - **WebSocket Support**: Real-time topic streaming with special handling for ROS2 image topics
 
@@ -129,6 +137,102 @@ Modern browser-based interface for monitoring and managing the Corebrum mesh:
 corebrum web
 
 # Access Web UI at http://localhost:6502
+
+# Create an identity
+curl -X POST 'http://localhost:6502/api/identity' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Robot Alpha"}'
+
+# Create a hive for collaborative learning
+corebrum hive create "Research Team" --description "Shared knowledge" --key-id {key_id}
+```
+
+## 🧠 Cognitive Identity, Memory, and Hive System
+
+Corebrum provides a comprehensive cognitive architecture that enables robots to learn separately, retain knowledge, and collaborate through shared memory groups.
+
+### Identity System
+
+Each robot has a unique identity (`key_id`) that enables:
+- **Isolated Learning**: Each robot maintains its own private memory and learns independently
+- **Lineage Tracking**: Parent-child relationships between identities for knowledge inheritance
+- **Persistent Knowledge**: Identity metadata and memories persist across restarts
+- **Secure Access**: Memory access controlled by identity and lineage
+
+### Three-Tier Memory Architecture
+
+Corebrum supports three types of memory access:
+
+1. **Own Memory** (`memory/{key_id}/{key}`)
+   - Private to each robot
+   - Isolated and secure
+   - Persists across restarts
+
+2. **Ancestor Memory** (automatic)
+   - Robots automatically access memories from parent robots in identity lineage
+   - Hierarchical inheritance pattern
+   - Secure, lineage-based access
+
+3. **Hive Memory** (`memory/hives/{hive_id}/memory/{key}`)
+   - Shared among hive members
+   - Collaborative knowledge base
+   - Enables multi-robot learning and knowledge sharing
+
+**Memory Query Aggregation:**
+When querying memory for an identity, all three types are automatically aggregated, giving robots access to:
+- Their own memories
+- Ancestor memories (from parent robots)
+- Hive memories (from all hives the robot belongs to)
+
+### Hive System
+
+Hives are named groups that enable robots to share memories and collaborate:
+
+**Key Features:**
+- **Membership-Based Access**: Only hive members can access hive memories
+- **Named Groups**: Create hives for specific purposes (e.g., "Research Team", "Production Workers")
+- **Collaborative Learning**: Robots share insights and learn from each other
+- **Persistent Knowledge**: Hive memories persist across restarts
+
+**Example: Collaborative Learning**
+```bash
+# Create a hive
+curl -X POST 'http://localhost:6502/api/hives?key_id={creator_key_id}' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Research Team", "description": "Shared knowledge base"}'
+
+# Add robots to the hive
+curl -X PUT 'http://localhost:6502/api/hives/{hive_id}/members/{robot_1_key_id}'
+curl -X PUT 'http://localhost:6502/api/hives/{hive_id}/members/{robot_2_key_id}'
+
+# Robot 1 shares knowledge
+curl -X PUT 'http://localhost:6502/api/hives/{hive_id}/memory/fact_1?key_id={robot_1_key_id}' \
+  -H 'Content-Type: application/json' \
+  -d '{"value": "The speed of light is 299,792,458 m/s"}'
+
+# Robot 2 can now access Robot 1's knowledge
+curl 'http://localhost:6502/api/hives/{hive_id}/memory?key_id={robot_2_key_id}'
+```
+
+**Memory Architecture:**
+```
+┌─────────────────────────────────────────┐
+│      Robot Memory Access                │
+└─────────────────────────────────────────┘
+              │
+    ┌─────────┼─────────┐
+    │         │         │
+┌───▼───┐ ┌──▼──┐ ┌────▼────┐
+│  Own  │ │Anc. │ │  Hive   │
+│Memory │ │Mem. │ │ Memory  │
+└───────┘ └─────┘ └─────────┘
+    │         │         │
+    └─────────┼─────────┘
+              │
+      ┌───────▼───────┐
+      │   Aggregated  │
+      │   Memory View │
+      └───────────────┘
 ```
 
 ## 🎯 Use Cases
@@ -208,6 +312,7 @@ cargo build --release
 ## 📚 Resources
 
 - **[Corebrum Examples](https://github.com/corebrum/corebrum-examples)**: Comprehensive task definitions and examples
+- **[Hive Examples](https://github.com/corebrum/corebrum-examples/tree/main/task_definitions/hive)**: Examples demonstrating collaborative learning and memory sharing
 
 
 ## 🌟 Key Features
@@ -218,6 +323,9 @@ cargo build --release
 - ✅ **ROS2 Integration**: Native support for modern ROS2 robots
 - ✅ **Distributed Storage**: Filesystem, RocksDB, and InfluxDB backends
 - ✅ **In-Memory Caching**: High-speed distributed memory operations
+- ✅ **Cognitive Identity System**: Unique robot identities with isolated learning
+- ✅ **Three-Tier Memory**: Own + Ancestor + Hive memory access patterns
+- ✅ **Hive Memory Sharing**: Collaborative knowledge groups for multi-robot learning
 - ✅ **Zenoh Mesh Networking**: Automatic discovery and topology formation
 - ✅ **Interactive Shell**: CMOS provides familiar Unix-like interface
 - ✅ **REST API**: Complete HTTP API for all platform functions
