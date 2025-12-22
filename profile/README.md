@@ -330,7 +330,7 @@ cargo build --release
 - ✅ **Interactive Shell**: CMOS provides familiar Unix-like interface
 - ✅ **REST API**: Complete HTTP API for all platform functions
 - ✅ **Web UI**: Modern browser-based interface for monitoring and management
-- ✅ **Stream-Reactive Tasks**: Real-time processing of continuous data streams
+- ✅ **Stream-Reactive Tasks**: Real-time processing of continuous compute streams
 - ✅ **Multi-Machine Support**: Scale from single machines to distributed clusters
 
 ## 🤝 Contributing
