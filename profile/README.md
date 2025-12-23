@@ -1,6 +1,6 @@
 # Corebrum
 
-## Decentralized Mesh Supercomputing Platform
+## Cognitive Mesh Supercomputing Platform
 
 Corebrum is a revolutionary decentralized mesh (super)computing platform that brings massively parallel and serialized compute capabilities to robotics, physical AI, and distributed computing applications. By combining compute, network, storage, and memory into a unified mesh architecture, Corebrum enables unprecedented scalability and flexibility for next-generation computing workloads.
 
@@ -312,7 +312,7 @@ cargo build --release
 ## 📚 Resources
 
 - **[Corebrum Examples](https://github.com/corebrum/corebrum-examples)**: Comprehensive task definitions and examples
-- **[Hive Examples](https://github.com/corebrum/corebrum-examples/tree/main/task_definitions/hive)**: Examples demonstrating collaborative learning and memory sharing
+- **[Hive Examples](https://github.com/corebrum/corebrum-examples/tree/master/task_definitions/hive)**: Examples demonstrating collaborative learning and memory sharing
 
 
 ## 🌟 Key Features
