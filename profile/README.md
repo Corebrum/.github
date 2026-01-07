@@ -147,6 +147,43 @@ curl -X POST 'http://localhost:6502/api/identity' \
 corebrum hive create "Research Team" --description "Shared knowledge" --key-id {key_id}
 ```
 
+### Python Library (PyPI)
+
+Execute Python code transparently on Corebrum's distributed infrastructure with minimal code changes:
+
+```bash
+pip install corebrum
+```
+
+**Quick Start:**
+```python
+import corebrum
+
+# Configure Corebrum connection
+corebrum.configure(base_url="http://localhost:6502")
+
+# Decorate function to run on Corebrum
+@corebrum.run()
+def process_data(data):
+    import pandas as pd
+    df = pd.DataFrame(data)
+    return df.describe().to_dict()
+
+# Call normally - executes on Corebrum
+result = process_data([{"x": 1, "y": 2}, {"x": 3, "y": 4}])
+```
+
+**Features:**
+- **Transparent Execution**: Code runs as if local, but executes on Corebrum
+- **Automatic Dependency Detection**: Detects and includes Python package dependencies
+- **Auto-Install Dependencies**: Workers automatically install missing packages (e.g., pandas, numpy)
+- **Two Usage Patterns**: Decorator (`@corebrum.run()`) and raw code execution (`corebrum.execute()`)
+- **Error Handling**: Corebrum errors surface as Python exceptions
+- **Identity Support**: Works with Corebrum's identity and memory system
+
+**Documentation:** [https://github.com/Corebrum/corebrum-pip](https://github.com/Corebrum/corebrum-pip)  
+**PyPI Package:** [https://pypi.org/project/corebrum/](https://pypi.org/project/corebrum/)
+
 ## 🧠 Cognitive Identity, Memory, and Hive System
 
 Corebrum provides a comprehensive cognitive architecture that enables robots to learn separately, retain knowledge, and collaborate through shared memory groups.
@@ -279,6 +316,30 @@ Chain compute jobs for complex data processing pipelines:
 
 ### Installation
 
+#### Python Library (Recommended for Python Users)
+
+```bash
+pip install corebrum
+```
+
+**Quick Start:**
+```python
+import corebrum
+
+@corebrum.run()
+def process_data(data):
+    import pandas as pd
+    df = pd.DataFrame(data)
+    return df.describe().to_dict()
+
+result = process_data([{"x": 1, "y": 2}, {"x": 3, "y": 4}])
+```
+
+**Documentation:** [https://github.com/Corebrum/corebrum-pip](https://github.com/Corebrum/corebrum-pip)  
+**PyPI Package:** [https://pypi.org/project/corebrum/](https://pypi.org/project/corebrum/)
+
+#### Corebrum Platform
+
 ```bash
 # Clone the main repository
 git clone https://github.com/corebrum/corebrum.git
@@ -312,6 +373,7 @@ cargo build --release
 ## 📚 Resources
 
 - **[Corebrum Examples](https://github.com/corebrum/corebrum-examples)**: Comprehensive task definitions and examples
+- **[Python Library](https://github.com/Corebrum/corebrum-pip)**: Execute Python code transparently on Corebrum (available on [PyPI](https://pypi.org/project/corebrum/))
 - **[Hive Examples](https://github.com/corebrum/corebrum-examples/tree/master/task_definitions/hive)**: Examples demonstrating collaborative learning and memory sharing
 
 
@@ -320,6 +382,8 @@ cargo build --release
 - ✅ **Massively Parallel Computing**: Independent tasks execute simultaneously
 - ✅ **Sequential Task Execution**: Chain jobs with automatic output-to-input mapping
 - ✅ **Multiple Runtimes**: Python, Docker, WebAssembly, JavaScript
+- ✅ **Python Library (PyPI)**: Execute Python code transparently with `pip install corebrum`
+- ✅ **Automatic Dependency Installation**: Workers automatically install missing Python packages
 - ✅ **ROS2 Integration**: Native support for modern ROS2 robots
 - ✅ **Distributed Storage**: Filesystem, RocksDB, and InfluxDB backends
 - ✅ **In-Memory Caching**: High-speed distributed memory operations
