@@ -184,6 +184,54 @@ result = process_data([{"x": 1, "y": 2}, {"x": 3, "y": 4}])
 **Documentation:** [https://github.com/Corebrum/corebrum-pip](https://github.com/Corebrum/corebrum-pip)  
 **PyPI Package:** [https://pypi.org/project/corebrum/](https://pypi.org/project/corebrum/)
 
+### JavaScript Library (npm)
+
+Execute JavaScript code transparently on Corebrum's distributed infrastructure with minimal code changes:
+
+```bash
+npm install corebrum
+```
+
+**Quick Start:**
+```javascript
+const corebrum = require('corebrum');
+
+// Configure Corebrum connection (optional, defaults to http://localhost:6502)
+corebrum.configure({
+  baseUrl: 'http://localhost:6502',
+  identityId: 'your-identity-id' // Optional
+});
+
+// Wrap function to run on Corebrum
+const processData = corebrum.run((data) => {
+  // Your processing code here
+  const result = data.map(item => ({
+    ...item,
+    processed: true,
+    timestamp: Date.now()
+  }));
+  return result;
+});
+
+// Call normally - executes on Corebrum
+const result = await processData([
+  { id: 1, name: 'Item 1' },
+  { id: 2, name: 'Item 2' }
+]);
+
+console.log(result);
+```
+
+**Features:**
+- **Transparent Execution**: Code runs as if local, but executes on Corebrum
+- **Automatic Dependency Detection**: Detects and includes npm package dependencies from `require()` and `import` statements
+- **Two Usage Patterns**: Wrapper (`corebrum.run()`) and raw code execution (`corebrum.execute()`)
+- **Error Handling**: Corebrum errors surface as JavaScript exceptions
+- **Identity Support**: Works with Corebrum's identity and memory system
+
+**Documentation:** [https://github.com/Corebrum/corebrum-npm](https://github.com/Corebrum/corebrum-npm)  
+**npm Package:** [https://www.npmjs.com/package/corebrum](https://www.npmjs.com/package/corebrum)
+
 ## 🧠 Cognitive Identity, Memory, and Hive System
 
 Corebrum provides a comprehensive cognitive architecture that enables robots to learn separately, retain knowledge, and collaborate through shared memory groups.
@@ -374,6 +422,7 @@ cargo build --release
 
 - **[Corebrum Examples](https://github.com/corebrum/corebrum-examples)**: Comprehensive task definitions and examples
 - **[Python Library](https://github.com/Corebrum/corebrum-pip)**: Execute Python code transparently on Corebrum (available on [PyPI](https://pypi.org/project/corebrum/))
+- **[JavaScript Library](https://github.com/Corebrum/corebrum-npm)**: Execute JavaScript code transparently on Corebrum (available on [npm](https://www.npmjs.com/package/corebrum))
 - **[Hive Examples](https://github.com/corebrum/corebrum-examples/tree/master/task_definitions/hive)**: Examples demonstrating collaborative learning and memory sharing
 
 
@@ -381,8 +430,9 @@ cargo build --release
 
 - ✅ **Massively Parallel Computing**: Independent tasks execute simultaneously
 - ✅ **Sequential Task Execution**: Chain jobs with automatic output-to-input mapping
-- ✅ **Multiple Runtimes**: Python, Docker, WebAssembly, JavaScript
+- ✅ **Multiple Runtimes**: Python, JavaScript, Docker, WebAssembly
 - ✅ **Python Library (PyPI)**: Execute Python code transparently with `pip install corebrum`
+- ✅ **JavaScript Library (npm)**: Execute JavaScript code transparently with `npm install corebrum`
 - ✅ **Automatic Dependency Installation**: Workers automatically install missing Python packages
 - ✅ **ROS2 Integration**: Native support for modern ROS2 robots
 - ✅ **Distributed Storage**: Filesystem, RocksDB, and InfluxDB backends
