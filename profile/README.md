@@ -1,8 +1,8 @@
 # Corebrum OS
 
-## The operating system for Physical AI.
+## The Physical AI Operating System.
 
-Beautiful, keyboard-first Linux for robots. Inspired by [Omarchy](https://github.com/omacom/omarchy). Built on a minimal Ubuntu Server. Corebrum OS is an operating environment, not a new kernel or package manager.
+Beautiful, keyboard-first Linux for robots. Inspired by Omarchy. Built on a minimal Ubuntu Server. Corebrum OS is an operating environment, not a new kernel or package manager.
 
 ## On the machine
 
@@ -22,9 +22,9 @@ Super+Space installs or launches them. The desktop profile does not preinstall t
 
 Agents, ROS 2, and perception on Zenoh. A minimal Ubuntu Server. Robotics and agents on the same machine. Zenoh between them.
 
-- **Ubuntu Server.** A minimal server, with a keyboard-first desktop session on top.
-- **ROS 2.** Jazzy on Ubuntu 24.04. Lyrical Luth on Ubuntu 26.04.
-- **AgenticROS.** Agents and robots sharing one graph.
+- **Ubuntu Server 26.** A minimal server, with a keyboard-first desktop session on top. It should also run on Ubuntu Server 24.
+- **ROS 2 Lyrical Luth.** The robotics stack on the robot's computer. It should also run with ROS 2 Jazzy on Ubuntu Server 24.
+- **[AgenticROS](https://agenticros.com).** Agents and robots sharing one graph.
 - **RealSense.** 3D stereo cameras for the scene in front of the robot.
 
 Zenoh carries the messages.
@@ -54,8 +54,6 @@ Setup lives in the [Corebrum OS](https://github.com/corebrum/corebrum-os) reposi
 - [Discord](https://discord.gg/psmJndP93)
 - [X](https://x.com/corebrumos)
 - [LinkedIn](https://www.linkedin.com/company/corebrum)
-
-The earlier cognitive mesh platform is described in [cortex.md](./cortex.md).
 
 ---
 
