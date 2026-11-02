@@ -2,11 +2,11 @@
 
 ## The Physical AI Operating System.
 
-Beautiful, keyboard-first Linux for robots. Inspired by Omarchy. Built on a minimal Ubuntu Server. Corebrum OS is an operating environment, not a new kernel or package manager.
+Inspired by Omarchy, and built to run on Ubuntu for robotics. Corebrum OS ships with eight AI agents, ROS, and RealSense built in, along with [Corebrum Synapse](https://github.com/Corebrum/corebrum-synapse). Synapse connects them all together so AI can control its own body to accomplish missions.
 
 ## On the machine
 
-Seven agents, already at home. They live on the operating system, next to the motors and the cameras.
+Eight agents, already at home. They live on the operating system, next to the motors and the cameras.
 
 - **Antigravity.** Plan the motion.
 - **Claude.** Read the scene.
@@ -15,16 +15,17 @@ Seven agents, already at home. They live on the operating system, next to the mo
 - **Grok.** Ask the robot.
 - **Hermes.** Carry the task.
 - **OpenClaw.** Open the loop.
+- **Ollama.** Run the model.
 
-Super+Space installs or launches them. The desktop profile does not preinstall them.
+They ship with the operating system.
 
 ## One network
 
-Agents, ROS 2, and perception on Zenoh. A minimal Ubuntu Server. Robotics and agents on the same machine. Zenoh between them.
+A minimal Ubuntu Server. Robotics and agents on the same machine. Synapse between them.
 
 - **Ubuntu Server 26.** A minimal server, with a keyboard-first desktop session on top. It should also run on Ubuntu Server 24.
 - **ROS 2 Lyrical Luth.** The robotics stack on the robot's computer. It should also run with ROS 2 Jazzy on Ubuntu Server 24.
-- **[AgenticROS](https://agenticros.com).** Agents and robots sharing one graph.
+- **[Corebrum Synapse](https://github.com/Corebrum/corebrum-synapse).** Connects the agents, ROS, and RealSense so AI can control its own body and accomplish missions.
 - **RealSense.** 3D stereo cameras for the scene in front of the robot.
 
 Zenoh carries the messages.
